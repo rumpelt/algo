@@ -28,6 +28,32 @@ void subsets(std::string input, std::vector<std::string>& result) {
   result.push_back(first);
 }
 
+/**
+ * Generates a permutation for the string
+ */
+std::vector<std::string> permutation(std::string text) {
+  std::vector<std::string> result;
+  if(text.size() == 0) {
+    return result;
+  }
+   
+  std::string prefix = text.substr(0,1);
+  std::string remaining;
+  if(text.size() > 1)
+    remaining = text.substr(1, text.size() - 1);
+  std::vector<std::string> permutations = permutation(remaining);
+  for(int index = 0; index < permutations.size(); index++) {
+    for(int pos = 0; pos <= permutations[index].size(); pos++) {
+        std::string permt = permutations[index];
+        permt.insert(pos, prefix);
+        result.push_back(permt);    
+    }
+  }
+  if(result.size() == 0)
+    result.push_back(prefix);
+  return result;
+}
+
 
 void printVector(std::vector<std::string> vec) {
   for(std::vector<std::string>::iterator it = vec.begin(); it != vec.end(); ++it) {
@@ -41,5 +67,6 @@ int main(int argc, char* argv[])  {
   std::vector<std::string> result;
   std::cout << "Generating Subset of string " << test << std::endl;
   subsets(test, result);
+  result = permutation(test);
   printVector(result);
 }
