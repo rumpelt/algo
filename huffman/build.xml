@@ -1,0 +1,40 @@
+<project name="huffman" default="dist" basedir=".">
+    <description>
+   	build file the huffman encoding
+    </description>
+    <property environment="env"/>
+    <property name="build" location="build"/>
+    <property name="dist" location="bin"/> 
+    <property name="src" location="src"/>
+
+    <path id="huffman.dist">
+    	<fileset dir="./dist/lib">
+    	   <include name="*.jar"/>
+    	</fileset>
+    </path>
+
+    <target name="init">
+       <mkdir dir="${build}"/>
+       <mkdir dir="${dist}"/>
+    </target>
+
+    <target name="compile" depends="init" description="compile the whole damnn thing">
+        <javac 	srcdir="${src}"  destdir="${build}" debug="true" debuglevel="lines,vars,source">
+        </javac>
+    </target>
+
+    <target name="dist" depends="compile">
+        <mkdir dir="${dist}"/>
+	<jar jarfile="${dist}/huffman.jar" basedir="${build}">
+          <manifest>
+            <attribute name="Main-Class" value="HuffmanEncoding"/>
+          </manifest>
+        </jar>
+    </target>
+  
+    <target name="clean"  description="clean the project">
+        <delete dir="${build}"/>
+        <delete dir="${dist}"/>
+    </target >
+    
+</project>

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 /**
  * author : ashwani
  * A recent programming challenge solved me. Will update soon on input and output
+ * http://www.yodlecareers.com/puzzles/triangle.html 
  */  
 public class TriangleMaxSum {
     

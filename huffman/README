@@ -1,0 +1,29 @@
+1. To clean
+  ant clean
+2. To compile 
+   ant compile
+3. To create the jar file 
+   ant
+
+Instructions to run
+This program read from the standard input for the text stream. This is very important.
+There are two ways this can be done.
+1. create a stream file as in test/textstream file in this directory and then execute following
+   cat test/textstream | java -jar bin/huffman.jar
+
+2. Second method you have to enter the text stream on console and then hit cntrl D to end
+   
+    java -jar bin/huffman.jar 
+    hit control D when you are finsihed giving the text stream
+
+
+Running Test suite
+To test, you must specify the text stream using one of the above methods.
+To test strings must be specified on command line. There are two ways this can be done.
+ 1. first argumen is string to encode and second argument is expected encoding
+    
+     cat test/textstream | java -jar bin/huffman.jar <string to test> <expected encoding of the test string>
+
+ 2. Specify a bunch of  test string and expected encoding in a file on separate line. Look at test/testsuite
+
+    cat test/textstream | java -jar bin/huffman.jar test/testsuite
