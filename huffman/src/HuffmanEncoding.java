@@ -184,20 +184,21 @@ public class HuffmanEncoding {
     }
 
     public static void main(String[] args) throws IOException, Exception, FileNotFoundException {
-        InputStreamReader isr  = new InputStreamReader(System.in);
-        int symbol;
+        if (args.length < 1) {
+            System.err.println("No text stream provided");
+            return;
+        }
+
         StringBuilder sb = new StringBuilder();
-        /**
-         * Read the stream form console untill end of file. Encoding dictionary is created from terminal
-         */
-        while((symbol = isr.read()) != -1) {
+        for(char symbol : args[0].toCharArray()) {
             if(!Character.isSpaceChar(symbol)) { // we ignore the space character in input
                 sb.appendCodePoint(symbol);
             }
         }
-
+        
+        
         HuffmanEncoding hfe = new HuffmanEncoding(sb.toString()); // Constructe the Huffman Encoding Dictionary from the text stream
-        System.out.println("Huffman Encoding for input stream");
+        System.out.println("Huffman Encoding for input stream "+args[0]+ " : ");
         System.out.println(hfe.getHuffmanEncodedString(hfe.getText()));
         System.out.println("Encoding Dictionary");
         hfe.printEncodingDict();
@@ -205,24 +206,34 @@ public class HuffmanEncoding {
         /**
          * This is simple test case when the input string is argument 1 and expected encoding is argument 2
          */
-        if (args.length == 2) {
-            String expected = args[1];
-            String got = hfe.getHuffmanEncodedString(args[0]);
-            System.out.println("InputString :" + args[0] + " ExpectedCode: " + expected + " Got : "+got + " TestResult: "+ expected.equals(got));
+        if (args.length == 3) {
+            String expected = args[2];
+            try {
+                String got = hfe.getHuffmanEncodedString(args[1]);
+                System.out.println("InputString :" + args[1] + " ExpectedCode: " + expected + " Got : "+got + " TestResult: "+ expected.equals(got)); 
+            } catch(Exception e) {
+                System.err.println(e.getMessage());
+            }
+            
         }
  
         /**
          * This is when you want to have bunch of test cases in a file
          * Each line in the file will input string and expected encoding.
          */
-        if(args.length == 1) {
-            BufferedReader br = new BufferedReader(new FileReader(args[0]));
+        if(args.length == 2) {
+            BufferedReader br = new BufferedReader(new FileReader(args[1]));
             String line = null;
             while((line = br.readLine()) != null) {
                 String[] test  = line.split("\\s+");
                 String expected = test[1].trim();
-                String got = hfe.getHuffmanEncodedString(test[0].trim());
-                System.out.println("InputString :" + test[0] + " ExpectedCode: " + expected + " Got : "+got + " TestResult: "+ expected.equals(got));
+                try {
+                    String got = hfe.getHuffmanEncodedString(test[0].trim());
+                    System.out.println("InputString :" + test[0] + " ExpectedCode: " + expected + " Got : "+got + " TestResult: "+ expected.equals(got));
+                }
+                catch(Exception e) {
+                    System.err.println(e.getMessage());
+                }
             }
         }
     }    
